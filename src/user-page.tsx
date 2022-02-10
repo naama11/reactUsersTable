@@ -1,7 +1,11 @@
 import {User} from "./user.interface";
-import React from "react";
+import React, {useEffect} from "react";
 
 export function UserPage(props: {user: User | undefined}) {
+    useEffect(() => {
+        document.title = 'User Page';
+    }, []);
+
     if (!props.user) {
         return <div>Loading...</div>;
     } else {

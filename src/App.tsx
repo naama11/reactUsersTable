@@ -1,13 +1,11 @@
-import React, {MouseEventHandler, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import './App.css';
 import {UsersTable} from "./users-table";
 import {Gender, User,} from "./user.interface";
-//import {Router} from "react-router-dom";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from 'react-router-dom';
 import {UserPage} from "./user-page";
 const _ = require('lodash');
@@ -16,7 +14,7 @@ const users: User[] = [
   {
     name: {
       title: "Ms",
-      first: "Naama",
+      first: "Osi",
       last: "Almog"
     },
     dob: {
@@ -26,20 +24,6 @@ const users: User[] = [
     email: "a@m",
     picture: "a",
     gender: Gender.Female,
-  },
-  {
-    name: {
-      title: "Ms",
-      first: "Osi",
-      last: "Almog"
-    },
-    dob: {
-      date: new Date(),
-      age: 25
-    },
-    email: "a@m",
-    picture: "a",
-    gender: Gender.Male,
   }
 ];
 
@@ -52,8 +36,6 @@ function App() {
   const [items, setItems] = useState([]);
   const [currentUser, setCurrentUser] = useState(users[0]);
 
-  // TODO: why called several times when no change? should use useMemo? ,
-  //       [items]
   useEffect(() =>
   {
     fetch("https://randomuser.me/api/?page=" + page + "&results=" + pageSize + "&seed=abcd")
@@ -83,16 +65,10 @@ function App() {
   },
       [items, page]);
 
-  // TODO: don't see the title
-  useEffect(() => {
-    document.title = 'All Users';
-  }, []);
-
+  // TODO: should set page title here according to component displayed.
   const pageSize = 10;
 
-  // TODO: currentUser should pass from table component as event when clicked. and pass params here
-
-  // TODO: use these functions with state, with disable for previous button if page =0
+  // TODO: first next click is not moving next page
   function nextPage() {
     setPage(page + 1);
   }
@@ -114,7 +90,7 @@ function App() {
         <Router>
         <div className="App">
           <Routes>
-            <Route path='/' element={<UsersTable results={items} nextPage={nextPage} previousPage={previousPage} setUser={updateCurrentUser}/>}></Route>
+            <Route path='/' element={<UsersTable results={items} nextPage={nextPage} previousPage={previousPage} setUser={updateCurrentUser} page={page}/>}></Route>
             <Route path='/user' element={<UserPage user={currentUser}/>}></Route>
           </Routes>
         </div>
