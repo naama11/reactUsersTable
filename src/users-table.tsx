@@ -12,6 +12,12 @@ export function UsersTable(props: { results: User[]; previousPage: MouseEventHan
         <>
             <div>
                 <table id="users">
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                    </tr>
                     <tbody>
                         {props.results.map((user : User) =>
                             <tr>
