@@ -22,7 +22,11 @@ const users: User[] = [
       age: 5
     },
     email: "a@m",
-    picture: "a",
+    picture: {
+      "large": "https://randomuser.me/api/portraits/men/75.jpg",
+      "medium": "https://randomuser.me/api/portraits/med/men/75.jpg",
+      "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
+    },
     gender: Gender.Female,
   }
 ];

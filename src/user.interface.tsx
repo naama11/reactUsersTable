@@ -1,5 +1,5 @@
 export interface User {
-    picture: string;
+    picture: Picture;
     name: FullName;
     email: string;
     gender: Gender;
@@ -26,4 +26,10 @@ export interface FullName {
 export enum Gender {
     Female= "Female",
     Male = "Male"
+}
+
+export interface Picture {
+    large: string;
+    medium: string;
+    thumbnail: string;
 }

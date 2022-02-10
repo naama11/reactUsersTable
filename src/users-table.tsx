@@ -8,6 +8,8 @@ export function UsersTable(props: { results: User[]; previousPage: MouseEventHan
         document.title = 'All Users';
     }, []);
 
+    // TODO: image is fetched from server using the image link provided from server?
+    // TODO: search - did not see in server. should search only in UI? (can have less then 10 results..
     return (
         <>
             <div>
@@ -29,7 +31,7 @@ export function UsersTable(props: { results: User[]; previousPage: MouseEventHan
                         )}
                     </tbody>
                 </table>
-                <button onClick={props.previousPage} disabled={props.page == 0}>Previous Page</button>
+                <button onClick={props.previousPage} disabled={props.page === 0}>Previous Page</button>
                 <button onClick={props.nextPage}>Next Page</button>
             </div>
         </>);
