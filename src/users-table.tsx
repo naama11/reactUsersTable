@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 import {User} from "./user.interface";
 
-export function UsersTable(props: { results: User[]; previousPage: MouseEventHandler<HTMLButtonElement> | undefined; nextPage: MouseEventHandler<HTMLButtonElement> | undefined; })
+export function UsersTable(props: { results: User[]; previousPage: MouseEventHandler<HTMLButtonElement> | undefined; nextPage: MouseEventHandler<HTMLButtonElement> | undefined; setUser: (user: User) => void})
 {
     return (
         <>
@@ -11,7 +11,7 @@ export function UsersTable(props: { results: User[]; previousPage: MouseEventHan
                     <tbody>
                         {props.results.map((user : User) =>
                             <tr>
-                                <th><Link to="/user">{user.name.title + ' ' + user.name.first + ' ' + user.name.last}</Link></th>
+                                <th><Link to={"/user"} onClick={() => props.setUser(user)}>{user.name.title + ' ' + user.name.first + ' ' + user.name.last}</Link></th>
                                 <th>{user.dob.age}</th>
                                 <th>{user.email}</th>
                                 <th>{user.gender}</th>

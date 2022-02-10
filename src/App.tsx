@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {MouseEventHandler, useEffect, useState} from 'react';
 import './App.css';
 import {UsersTable} from "./users-table";
 import {Gender, User,} from "./user.interface";
@@ -50,6 +50,7 @@ function App() {
   const [page, setPage] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [currentUser, setCurrentUser] = useState(users[0]);
 
   // TODO: why called several times when no change? should use useMemo? ,
   //       [items]
@@ -73,6 +74,8 @@ function App() {
               });
               if (!_.isEqual(itemsToSave, items)){
                 setItems(itemsToSave);
+                // TODO: handle init of user state- what should be done here?
+                setCurrentUser(itemsToSave[0]);
               }
               console.log('result.result' + result.results);
             }
@@ -85,13 +88,11 @@ function App() {
     document.title = 'All Users';
   }, []);
 
-
   const pageSize = 10;
 
   // TODO: currentUser should pass from table component as event when clicked. and pass params here
-  let currentUser = items[0];
 
-  // TODO: use these fuctions with state, with disable for previous button if page =0
+  // TODO: use these functions with state, with disable for previous button if page =0
   function nextPage() {
     setPage(page + 1);
   }
@@ -102,6 +103,10 @@ function App() {
     }
   }
 
+  function updateCurrentUser(user: User) {
+    setCurrentUser(user);
+  }
+
   if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
@@ -109,8 +114,8 @@ function App() {
         <Router>
         <div className="App">
           <Routes>
-            <Route path='/' element={< UsersTable  results={items} nextPage={nextPage} previousPage={previousPage}/>}></Route>
-            <Route path='/user' element={<UserPage  user={currentUser}/>}></Route>
+            <Route path='/' element={<UsersTable results={items} nextPage={nextPage} previousPage={previousPage} setUser={updateCurrentUser}/>}></Route>
+            <Route path='/user' element={<UserPage user={currentUser}/>}></Route>
           </Routes>
         </div>
         </Router>
